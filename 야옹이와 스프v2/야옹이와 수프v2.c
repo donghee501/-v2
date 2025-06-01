@@ -14,6 +14,8 @@ int main(void) {
 	int act, dice; // 상호작용, 주사위 수
 	int where = 1; // 고양이(C) 위치
 	int soupType; // 수프 종류
+	int feel = 3; // 기분
+	int CP = 0; // CP 초기화
 
 	printf("****야옹이와 수프****\n");
 	printf("      /\\_/\\  \n");
@@ -273,9 +275,7 @@ int main(void) {
 		printf("현재까지 만든 수프: %d개\n", soup);
 
 		// 2-2 상태창 CP, 기분 설정 추가
-		int feel = 3;
-		int CP = 0;
-	
+		
 		printf("CP: %d 포인트\n", CP);
 		printf("%s이 기분(0~3): %d", cat, feel);
 
@@ -317,6 +317,24 @@ int main(void) {
 
 		printf("==================================================\n\n");
 		Sleep(500);
+
+		// 2-2 기분 나빠짐
+		printf("6-%d: 주사위 눈이 %d이하이면 그냥 기분이 나빠집니다.\n", intimacy, 6 - intimacy);
+		printf("주사위를 굴립니다. 또르르...\n");
+		dice = rand() % 6 + 1;
+		printf("%d이(가) 나왔습니다.\n", dice);
+		if (dice <= 6 - intimacy) {
+			printf("%s의 기분이 나빠집니다: %d->%d\n", cat, feel, feel - 1);
+			feel--;
+			if (feel < 0) {
+				feel = 0;
+			}
+		}
+		else {
+			printf("다행히 기분이 나빠지지 않았습니다.\n");
+		}
+		
+		//
 
 	}
 
