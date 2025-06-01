@@ -266,6 +266,58 @@ int main(void) {
 		Sleep(2500);
 
 		system("cls");
+
+		//---------------------------------ver2--------------------------------
+		Sleep(500);
+		printf("==================== 현재 상태 ===================\n");
+		printf("현재까지 만든 수프: %d개\n", soup);
+
+		// 2-2 상태창 CP, 기분 설정 추가
+		int feel = 3;
+		int CP = 0;
+	
+		printf("CP: %d 포인트\n", CP);
+		printf("%s이 기분(0~3): %d", cat, feel);
+
+		switch (feel) {
+		case 0:
+			printf(" 기분이 매우 나쁩니다.\n");
+			break;
+		case 1:
+			printf(" 심심해합니다.\n");
+			break;
+		case 2:
+			printf(" 식빵을 굽습니다.\n");
+			break;
+		case 3:
+			printf(" 골골송을 부릅니다.\n");
+			break;
+		}
+		//
+
+		printf("집사와의 관계(0~4): %d\n", intimacy);
+		switch (intimacy) {
+		case 0:
+			printf(" 곁에 오는 것조차 싫어합니다.\n");
+			break;
+		case 1:
+			printf(" 간식 자판기 취급입니다.\n");
+			break;
+		case 2:
+			printf(" 그럭저럭 쓸 만한 집사입니다.\n");
+			break;
+		case 3:
+			printf(" 훌륭한 집사로 인정 받고 있습니다.\n");
+			break;
+		case 4:
+			printf(" 집사 껌딱지입니다.\n");
+			break;
+		}
+
+
+		printf("==================================================\n\n");
+		Sleep(500);
+
 	}
 
 
