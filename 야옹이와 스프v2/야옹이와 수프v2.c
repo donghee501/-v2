@@ -98,6 +98,8 @@ int main(void) {
 	char scratcher[] = "스크레처"; // 스크래처 이름
 	char cat_tower[] = "캣타워"; // 캣타워 이름
 	int CP = 0; // CP 초기화
+	int turn = 1; // 턴 초기화
+	int previous_where;
 
 	printf("****야옹이와 수프****\n");
 	printf("      /\\_/\\  \n");
@@ -273,6 +275,7 @@ int main(void) {
 
 		//2-3 이동
 
+		previous_where = where; // 이전 위치 저장
 
 		switch (feel) {
 		case 0:
@@ -313,8 +316,54 @@ int main(void) {
 			print_first_and_last_line();
 			break;
 		}
+
+		if (where < 1) {
+			where = 1;
+		}
+		if (where > 8) {
+			where = 8;
+		}
+
+		//
+		Sleep(500);
+		//2-4 행동
+		if (where == HME_POS) {
+			if (where == previous_where) 
+			feel++;
+		}
+		else if (where == BWL_PO) {
+			
+			soupType = rand() % 3;
+			switch (soupType) {
+			case 0:
+				printf("%s이(가) 양송이 수프를 만들었습니다!\n", cat);
+				break;
+			case 1:
+				printf("%s이(가) 브로콜리 수프를 만들었습니다!\n", cat);
+				break;
+			case 2:
+				printf("%s이(가) 감자 수프를 만들었습니다!\n", cat);
+				break;
+			}
+
+			soup++;
+			printf("현재까지 만든 수프: %d개\n\n", soup);
+			
+		}
+		else if (where == 스크레처) {
+			printf("%s이(가) %s에서 기분을 풀고 있습니다.\n", cat, scratcher);
+			printf("기분이 조금 좋아졌습니다: %d->%d\n",feel, feel += 1);
+			feel++;
+
+		}
+		else if (where == 캣타워) {
+			printf("%s이(가) %s에서 날아다닙니다.\n", cat, cat_tower);
+			printf("기분이 제법 좋아졌습니다: %d->%d\n", feel, feel += 2);
+		}
 		//
 
+
+		turn++;
 	}
 
 
