@@ -6,6 +6,86 @@
 #define ROOM_WIDTH 10
 #define HME_POS 1
 #define BWL_PO (ROOM_WIDTH - 2)
+//방 크기 함수
+void print_first_and_last_line(void) {
+	for (int i = 0; i < ROOM_WIDTH; i++) {
+		printf("#");
+	}
+	printf("\n");
+}
+
+void print_second_line(void) {
+	printf("#");
+	for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+		if (i == HME_POS) {
+			printf("H");
+		}
+		else if (i == BWL_PO) {
+			printf("B");
+		}
+		else {
+			printf(" ");
+		}
+	}
+	printf("#\n");
+}
+
+void print_cat_position1(int where) {
+	printf("#");
+	if (where == 9) {
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == where - 1) {
+				printf("C");
+			}
+			else {
+				printf(" ");
+			}
+		}
+	}
+	else {
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == where) {
+				printf("C");
+			}
+			else if (i == where - 1) {
+				printf(".");
+			}
+			else {
+				printf(" ");
+			}
+		}
+	}
+	printf("#\n");
+}
+
+void print_cat_position2(int where) {
+	printf("#");
+	if (where == 0) {
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == where + 1) {
+				printf("C");
+			}
+			else {
+				printf(" ");
+			}
+		}
+	}
+	else {
+		for (int i = 1; i < ROOM_WIDTH - 1; i++) {
+			if (i == where) {
+				printf("C");
+			}
+			else if (i == where + 1) {
+				printf(".");
+			}
+			else {
+				printf(" ");
+			}
+		}
+	}
+	printf("#\n");
+}
+
 
 int main(void) {
 	srand((unsigned int)time(NULL));
@@ -15,6 +95,8 @@ int main(void) {
 	int where = 1; // 고양이(C) 위치
 	int soupType; // 수프 종류
 	int feel = 3; // 기분
+	char scratcher[] = "스크레처"; // 스크래처 이름
+	char cat_tower[] = "캣타워"; // 캣타워 이름
 	int CP = 0; // CP 초기화
 
 	printf("****야옹이와 수프****\n");
@@ -65,154 +147,7 @@ int main(void) {
 
 
 
-		dice = rand() % 6 + 1;
-		if (dice >= 6 - intimacy) {
-			where++;
-			printf("%d이(가) 나왔습니다!\n", dice);
-			printf("냄비 쪽으로 움직입니다.\n");
-			Sleep(500);
-			if (where == 8 || where == 9) {
-				soupType = rand() % 3;
-				switch (soupType) {
-				case 0:
-					printf("%s이(가) 양송이 수프를 만들었습니다!\n", cat);
-					break;
-				case 1:
-					printf("%s이(가) 브로콜리 수프를 만들었습니다!\n", cat);
-					break;
-				case 2:
-					printf("%s이(가) 감자 수프를 만들었습니다!\n", cat);
-					break;
-				}
-
-				soup++;
-				printf("현재까지 만든 수프: %d개\n\n", soup);
-			}
-
-			for (int i = 0; i < ROOM_WIDTH; i++) {
-				printf("#");
-			}
-			printf("\n");
-
-			printf("#");
-			for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-				if (i == HME_POS) {
-					printf("H");
-				}
-				else if (i == BWL_PO) {
-					printf("B");
-				}
-				else {
-					printf(" ");
-				}
-			}
-			printf("#");
-			printf("\n");
-
-
-
-			printf("#");
-			if (where == 9) {
-				for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-					if (i == where - 1) {
-						printf("C");
-					}
-					else {
-						printf(" ");
-					}
-				}
-			}
-			else {
-				for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-					if (i == where) {
-						printf("C");
-					}
-					else if (i == where - 1) {
-						printf(".");
-					}
-					else {
-						printf(" ");
-					}
-				}
-			}
-
-			printf("#");
-			printf("\n");
-
-			for (int i = 0; i < ROOM_WIDTH; i++) {
-				printf("#");
-			}
-			printf("\n");
-		}
-		else {
-			where--;
-			printf("%d이(가) 나왔습니다!\n", dice);
-			printf("집 쪽으로 움직입니다.\n");
-			Sleep(500);
-
-			if (where == 1 || where == 0) {
-				printf("%s은(는) 자신의 집에서 편안함을 느낍니다.\n\n", cat);
-			}
-
-			for (int i = 0; i < ROOM_WIDTH; i++) {
-				printf("#");
-			}
-			printf("\n");
-
-			printf("#");
-			for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-				if (i == HME_POS) {
-					printf("H");
-				}
-				else if (i == BWL_PO) {
-					printf("B");
-				}
-				else {
-					printf(" ");
-				}
-			}
-			printf("#");
-			printf("\n");
-
-			printf("#");
-			if (where == 0) {
-				for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-					if (i == where + 1) {
-						printf("C");
-					}
-					else {
-						printf(" ");
-					}
-				}
-			}
-			else {
-				for (int i = 1; i < ROOM_WIDTH - 1; i++) {
-					if (i == where) {
-						printf("C");
-					}
-					else if (i == where + 1) {
-						printf(".");
-					}
-					else {
-						printf(" ");
-					}
-				}
-			}
-			printf("#");
-			printf("\n");
-
-			for (int i = 0; i < ROOM_WIDTH; i++) {
-				printf("#");
-			}
-			printf("\n");
-		}
-
-		if (where < 1) {
-			where = 1;
-		}
-		if (where > 8) {
-			where = 8;
-		}
+		
 
 
 
@@ -277,7 +212,7 @@ int main(void) {
 		// 2-2 상태창 CP, 기분 설정 추가
 		
 		printf("CP: %d 포인트\n", CP);
-		printf("%s이 기분(0~3): %d", cat, feel);
+		printf("%s이 기분(0~3): %d\n", cat, feel);
 
 		switch (feel) {
 		case 0:
@@ -334,6 +269,50 @@ int main(void) {
 			printf("다행히 기분이 나빠지지 않았습니다.\n");
 		}
 		
+		//
+
+		//2-3 이동
+
+
+		switch (feel) {
+		case 0:
+			printf("기분이 매우 나쁜 %s은(는) 집으로 향합니다.\n", cat);
+			print_first_and_last_line();
+			print_second_line();
+			print_print_cat_position2(where);
+			print_first_and_last_line();
+			break;
+		case 1:
+			printf("%s은(는) 심심해서 %s 쪽으로 이동합니다.\n", cat);
+			print_first_and_last_line();
+			print_second_line();
+
+			if (놀이기구x) {
+				printf("놀 거리가 없어서 기분이 매우 나빠집니다.\n");
+				feel--;
+			}
+			if (가까운 놀이기구 집쪽) {
+				print_cat_position2(where);
+			}
+			else {
+				print_cat_position1(where);
+
+			}
+			
+			print_first_and_last_line();
+
+			break;
+		case 2:
+			printf("%s은(는) 기분좋게 식빵을 굽고 있습니다.\n", cat);
+			break;
+		case 3:
+			printf("%s은(는) 골골송을 부르며 수프를 만들러 갑니다.\n", cat);
+			print_first_and_last_line();
+			print_second_line();
+			print_print_cat_position1(where);
+			print_first_and_last_line();
+			break;
+		}
 		//
 
 	}
