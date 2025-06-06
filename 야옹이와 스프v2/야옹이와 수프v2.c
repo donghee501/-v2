@@ -6,6 +6,7 @@
 #define ROOM_WIDTH 10
 #define HME_POS 1
 #define BWL_PO (ROOM_WIDTH - 2)
+
 //방 크기 함수
 void print_first_and_last_line(void) {
 	for (int i = 0; i < ROOM_WIDTH; i++) {
@@ -95,11 +96,17 @@ int main(void) {
 	int where = 1; // 고양이(C) 위치
 	int soupType; // 수프 종류
 	int feel = 3; // 기분
-	char scratcher[] = "스크레처"; // 스크래처 이름
-	char cat_tower[] = "캣타워"; // 캣타워 이름
+	int scratcher = 0; // 스크래처 초기화
+	int scratcher_where = 0; // 스크래처 위치 초기화
+	int cat_tower = 0; // 캣타워 초기화
+	int cat_tower_where = 0; // 캣타워 위치 초기화
 	int CP = 0; // CP 초기화
 	int turn = 1; // 턴 초기화
-	int previous_where;
+	int previous_where; // 이전 위치
+	int toyMouse = 0; // 장난감 쥐 초기화
+	int laserPointer = 0; // 레이저 포인터 초기화
+	
+
 
 	printf("****야옹이와 수프****\n");
 	printf("      /\\_/\\  \n");
@@ -286,18 +293,24 @@ int main(void) {
 			print_first_and_last_line();
 			break;
 		case 1:
-			printf("%s은(는) 심심해서 %s 쪽으로 이동합니다.\n", cat);
-			print_first_and_last_line();
-			print_second_line();
+			
+			
 
 			if (놀이기구x) {
 				printf("놀 거리가 없어서 기분이 매우 나빠집니다.\n");
+				print_first_and_last_line();
+				print_second_line();
 				feel--;
 			}
-			if (가까운 놀이기구 집쪽) {
+			if () {
+				printf("%s은(는) 심심해서 스크레쳐 쪽으로 이동합니다.\n", cat);
+				print_first_and_last_line();
+				print_second_line();
 				print_cat_position2(where);
 			}
 			else {
+				print_first_and_last_line();
+				print_second_line();
 				print_cat_position1(where);
 
 			}
@@ -369,11 +382,11 @@ int main(void) {
 		printf(" 0. 아무것도 하지 않음\n");
 		printf(" 1. 긁어 주기\n");
 		for (int i = 2; i < 4; i++) {
-			if (장난감 쥐o) {
+			if (toyMouse == 1) {
 				printf(" %d. 장난감 쥐로 놀아 주기%s\n", i);
 				continue;
 			}
-			if (레이저o) {
+			if (laserPointer == 1) {
 				printf(" %d. 레이저 포인터로 놀아 주기\n", i);
 			}
 		}
@@ -426,7 +439,7 @@ int main(void) {
 			}
 			break;
 		case 2:
-			if (장난감 쥐o) {
+			if (toyMouse == 1) {
 				printf("장난감 쥐로 %s와 놀아 주었습니다.\n", cat);
 				printf("%s의 기분이 조금 좋아졌습니다: %d->%d\n", cat, feel, feel + 1);
 				feel++;
@@ -445,7 +458,7 @@ int main(void) {
 				}
 			}
 
-			if (레이저o) {
+			if (laserPointer == 1) {
 				printf("레이저 포인터로 %s와 신나게 놀아 주었습니다.\n", cat);
 				printf("%s의 기분이 꽤 좋아졌습니다: %d->%d\n", cat, feel, feel + 2);
 				feel += 2;
@@ -464,7 +477,7 @@ int main(void) {
 				}
 			}
 		case 3:
-			if (레이저o) {
+			if (laserPointer == 1) {
 				printf("레이저 포인터로 %s와 신나게 놀아 주었습니다.\n", cat);
 				printf("%s의 기분이 꽤 좋아졌습니다: %d->%d\n", cat, feel, feel + 2);
 				feel += 2;
@@ -494,7 +507,119 @@ int main(void) {
 		printf("보유 CP: %d 포인트\n", CP);
 		// 	
 		Sleep(500);
+		//2-8 상점
+		printf("현재 보유 CP: %d CP\n", CP);
+		printf("상점에서 물건을 살 수 있습니다.\n");
+		printf("어떤 물건을 구매할까요?\n");
+		printf(" 0. 아무 것도 사지 않는다.\n");
+		if (toyMouse == 1) 
+			printf(" 1. 장난감 쥐: 1 CP (품절)\n");
+		else 
+			printf(" 1. 장난감 쥐: 1 CP\n");
+
+		if (laserPointer == 1)
+			printf(" 2. 레이저 포인터: 2 CP (품절)\n");
+		else
+			printf(" 2. 레이저 포인터: 2 CP\n");
+
+		if (scratcher == 1)
+			printf(" 3. 스크래처: 4 CP (품절)\n");
+		else
+			printf(" 3. 스크래처: 4 CP\n");
+
+		if (cat_tower == 1)
+			printf(" 4. 캣타워: 6 CP (품절)\n");
+		else
+			printf(" 4. 캣타워: 6 CP\n");
+
+
+
+		while (1) {
+			printf(">> ");
+			scanf_s("%d", &act);
+			if (act >= 0 && act <= 4) {
+				switch (act) {
+				case 0:
+					printf("아무 것도 사지 않습니다.\n");
+					break;
+				case 1:
+					if (toyMouse == 1) {
+						printf("장난감 쥐를 이미 구매했습니다.\n");
+						break;
+					}
+					if (CP >= 1) {
+						printf("장난감 쥐를 구매했습니다.\n");
+						CP -= 1;
+						printf("보유 CP %d 포인트\n", CP);
+						toyMouse = 1;
+					}
+					else {
+						printf("CP가 부족합니다.\n");
+					}
+					break;
+				case 2:
+					if (laserPointer == 1) {
+						printf("레이저 포인터를 이미 구매했습니다.\n");
+						break;
+					}
+					if (CP >= 2) {
+						printf("레이저 포인터를 구매했습니다.\n");
+						CP -= 2;
+						printf("보유 CP %d 포인트\n", CP);
+						laserPointer = 1;
+					}
+					else {
+						printf("CP가 부족합니다.\n");
+					}
+					break;
+				case 3:
+					if (scratcher == 1) {
+						printf("스크래처를 이미 구매했습니다.\n");
+						break;
+					}
+					if (CP >= 4) {
+						printf("스크래처를 구매했습니다.\n");
+						CP -= 4;
+						printf("보유 CP %d 포인트\n", CP);
+						scratcher = 1;
+						scratcher_where = rand() % (ROOM_WIDTH - 2) + 1; // 스크래처 위치 랜덤 설정
+						while (scratcher_where == HME_POS || scratcher_where == BWL_PO) {
+							scratcher_where = rand() % (ROOM_WIDTH - 2) + 1; // 스크래처 위치가 집이나 냄비에 겹치지 않도록
+						}
+
+
+					}
+					else {
+						printf("CP가 부족합니다.\n");
+					}
+					break;
+				case 4:
+					if (cat_tower == 1) {
+						printf("캣타워를 이미 구매했습니다.\n");
+						break;
+					}
+					if (CP >= 6) {
+						printf("캣타워를 구매했습니다.\n");
+						CP -= 6;
+						printf("보유 CP %d 포인트\n", CP);
+						cat_tower = 1;
+						cat_tower_where = rand() % (ROOM_WIDTH - 2) + 1; // 캣타워 위치 랜덤 설정
+						while (cat_tower_where == HME_POS || cat_tower_where == BWL_PO || cat_tower_where == scratcher_where) {
+							cat_tower_where = rand() % (ROOM_WIDTH - 2) + 1; // 캣타워 위치가 집이나 냄비에 겹치지 않도록
+						}
+					}
+					else {
+						printf("CP가 부족합니다.\n");
+					}
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+		}
 		
+		//
 
 		turn++;
 	}
