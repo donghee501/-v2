@@ -352,15 +352,142 @@ int main(void) {
 		}
 		else if (where == 스크레처) {
 			printf("%s이(가) %s에서 기분을 풀고 있습니다.\n", cat, scratcher);
-			printf("기분이 조금 좋아졌습니다: %d->%d\n",feel, feel += 1);
+			printf("기분이 조금 좋아졌습니다: %d->%d\n",feel, feel + 1);
 			feel++;
 
 		}
 		else if (where == 캣타워) {
 			printf("%s이(가) %s에서 날아다닙니다.\n", cat, cat_tower);
-			printf("기분이 제법 좋아졌습니다: %d->%d\n", feel, feel += 2);
+			printf("기분이 제법 좋아졌습니다: %d->%d\n", feel, feel + 2);
+			feel += 2;
+		}
+		printf("\n");
+		//
+		Sleep(500);
+		//2-5 상호작용 입력
+		printf("어떤 상호작용을 하시겠습니까?\n");
+		printf(" 0. 아무것도 하지 않음\n");
+		printf(" 1. 긁어 주기\n");
+		for (int i = 2; i < 4; i++) {
+			if (장난감 쥐o) {
+				printf(" %d. 장난감 쥐로 놀아 주기%s\n", i);
+				continue;
+			}
+			if (레이저o) {
+				printf(" %d. 레이저 포인터로 놀아 주기\n", i);
+			}
+		}
+		while (1) {
+			printf(">> ");
+			scanf_s("%d", &act);
+			if (act >= 0 && act <= 4) {
+				break;
+			}
 		}
 		//
+		
+		//2-6 상호작용 처리
+		switch (act) {
+		case 0:
+			printf("아무것도 하지 않습니다.\n");
+			printf("%s의 기분이 나빠졌습니다: %d->%d\n", cat, feel, feel - 1);
+			printf("5/6의 확률로 친밀도가 떨어집니다.\n");
+			printf("주사위를 굴립니다. 또르륵...\n");
+			dice = rand() % 6 + 1;
+			printf("%d이(가) 나왔습니다!\n", dice);
+			if (dice <= 5) {
+				printf("집사와의 관계가 나빠집니다.\n");
+				intimacy--;
+				if (intimacy < 0) {
+					intimacy = 0;
+				}
+			}
+			else {
+				printf("다행히 친밀도가 떨어지지 않았습니다.\n");
+			}
+			break;
+		case 1:
+			printf("%s(이)를 긁어주었습니다.\n", cat);
+			printf("%s의 기분은 그대로입니다: %d\n", cat, feel);
+			printf("2/6의 확률로 친밀도가 높아집니다.\n");
+			printf("주사위를 굴립니다. 또르륵...\n");
+			dice = rand() % 6 + 1;
+			if (dice >= 5) {
+				printf("%d이(가) 나왔습니다!\n", dice);
+				printf("친밀도가 높아집니다.\n");
+				intimacy++;
+				if (intimacy > 4) {
+					intimacy = 4;
+				}	
+			}
+			else {
+				printf("%d이(가) 나왔습니다!\n", dice);
+				printf("친밀도는 그대로입니다.\n");
+			}
+			break;
+		case 2:
+			if (장난감 쥐o) {
+				printf("장난감 쥐로 %s와 놀아 주었습니다.\n", cat);
+				printf("%s의 기분이 조금 좋아졌습니다: %d->%d\n", cat, feel, feel + 1);
+				feel++;
+				dice = rand() % 6 + 1;
+				if (dice >= 4) {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도가 높아집니다.\n");
+					intimacy++;
+					if (intimacy > 4) {
+						intimacy = 4;
+					}
+				}
+				else {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도는 그대로입니다.\n");
+				}
+			}
+
+			if (레이저o) {
+				printf("레이저 포인터로 %s와 신나게 놀아 주었습니다.\n", cat);
+				printf("%s의 기분이 꽤 좋아졌습니다: %d->%d\n", cat, feel, feel + 2);
+				feel += 2;
+				dice = rand() % 6 + 1;
+				if (dice >= 2) {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도가 높아집니다.\n");
+					intimacy++;
+					if (intimacy > 4) {
+						intimacy = 4;
+					}
+				}
+				else {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도는 그대로입니다.\n");
+				}
+			}
+		case 3:
+			if (레이저o) {
+				printf("레이저 포인터로 %s와 신나게 놀아 주었습니다.\n", cat);
+				printf("%s의 기분이 꽤 좋아졌습니다: %d->%d\n", cat, feel, feel + 2);
+				feel += 2;
+				dice = rand() % 6 + 1;
+				if (dice >= 2) {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도가 높아집니다.\n");
+					intimacy++;
+					if (intimacy > 4) {
+						intimacy = 4;
+					}
+				}
+				else {
+					printf("%d이(가) 나왔습니다!\n", dice);
+					printf("친밀도는 그대로입니다.\n");
+				}
+			break;
+		default:
+			break;
+		}
+
+		//
+
 
 
 		turn++;
