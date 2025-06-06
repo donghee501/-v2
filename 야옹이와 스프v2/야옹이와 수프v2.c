@@ -487,8 +487,14 @@ int main(void) {
 		}
 
 		//
-
-
+		Sleep(500);
+		//2-7 cp 생산
+			CP += (feel > 0 ? feel - 1 : 0) + intimacy;
+		printf("%s의 기분과 친밀도에 따라서 CP가 %d 포인트 생산되었습니다.\n", cat, (feel > 0 ? feel - 1 : 0) + intimacy);
+		printf("보유 CP: %d 포인트\n", CP);
+		// 	
+		Sleep(500);
+		
 
 		turn++;
 	}
