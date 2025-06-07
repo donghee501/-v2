@@ -7,6 +7,20 @@
 #define HME_POS 1
 #define BWL_PO (ROOM_WIDTH - 2)
 
+//절대값 함수
+int abs(int n) {
+	if (n < 0) {
+		return -n;
+	}
+	else if (n > 0) {
+		return n;
+	}
+	else if (n == 0) {
+		return 0;
+	}
+	return n;
+}
+
 //방 크기 함수
 void print_first_and_last_line(void) {
 	for (int i = 0; i < ROOM_WIDTH; i++) {
@@ -296,27 +310,45 @@ int main(void) {
 			
 			
 
-			if (놀이기구x) {
-				printf("놀 거리가 없어서 기분이 매우 나빠집니다.\n");
-				print_first_and_last_line();
-				print_second_line();
-				feel--;
+			if (abs(scratcher_where - where) > abs(cat_tower_where - where)) {
+				if (scratcher_where - where > 0) {
+					where++; // 스크래처로 이동
+					printf("%s은(는) 심심해하며 스크레처 쪽으로 이동합니다.\n", cat);
+				}
+				else if (scratcher_where - where < 0) {
+					where--; // 스크래처로 이동
+					printf("%s은(는) 심심해하며 스크레처 쪽으로 이동합니다.\n", cat);
+				}
+				else if (scratcher_where - where == 0) {
+					where = scratcher_where; // 스크래처로 이동
+					printf("%s은(는) 심심해하며 스크레처 쪽에서 대기합니다.\n", cat);
+				}
+				break;
 			}
-			if () {
-				printf("%s은(는) 심심해서 스크레쳐 쪽으로 이동합니다.\n", cat);
-				print_first_and_last_line();
-				print_second_line();
-				print_cat_position2(where);
-			}
-			else {
-				print_first_and_last_line();
-				print_second_line();
-				print_cat_position1(where);
 
+			else if (abs(scratcher_where - where) < abs(cat_tower_where - where)) {
+				if (cat_tower_where - where > 0) {
+					where++; // 캣타워로 이동
+					printf("%s은(는) 심심해하며 켓타워 쪽으로 이동합니다.\n", cat);
+				}
+				else if (cat_tower_where - where < 0) {
+					where--; // 캣타워로 이동
+					printf("%s은(는) 심심해하며 켓타워 쪽으로 이동합니다.\n", cat);
+				}
+				else if (cat_tower_where - where == 0) {
+					where = cat_tower_where; // 캣타워로 이동
+					printf("%s은(는) 심심해하며 켓타워 쪽에서 대기합니다.\n", cat);
+				}
+				break;
 			}
 			
-			print_first_and_last_line();
+			
 
+			if (scratcher == 0 && cat_tower == 0) {
+				printf("놀 거리가 없어서 기분이 매우 나빠집니다.\n");
+				feel--;
+			}
+			
 			break;
 		case 2:
 			printf("%s은(는) 기분좋게 식빵을 굽고 있습니다.\n", cat);
@@ -363,13 +395,13 @@ int main(void) {
 			printf("현재까지 만든 수프: %d개\n\n", soup);
 			
 		}
-		else if (where == 스크레처) {
+		else if (where == scratcher_where) {
 			printf("%s이(가) %s에서 기분을 풀고 있습니다.\n", cat, scratcher);
 			printf("기분이 조금 좋아졌습니다: %d->%d\n",feel, feel + 1);
 			feel++;
 
 		}
-		else if (where == 캣타워) {
+		else if (where == cat_tower_where) {
 			printf("%s이(가) %s에서 날아다닙니다.\n", cat, cat_tower);
 			printf("기분이 제법 좋아졌습니다: %d->%d\n", feel, feel + 2);
 			feel += 2;
