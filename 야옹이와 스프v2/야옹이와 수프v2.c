@@ -692,11 +692,75 @@ int main(void) {
 		system("cls");
 
 		//
+		int clear = 0; // 돌발 퀘스트 성공 여부 초기화
+		//2-9 돌발 퀘스트
+		if (turn % 3 == 0) { 
+			printf("돌발 퀘스트가 발생했습니다!\n");
+			printf("게임을 종료하려면 고양이의 도전을 통과하세요.\n");
+			printf("도전하시겠습니까? (1: 예, 0: 아니오) - 도전 비용 CP: %d\n", 10 * (turn / 2));
+			int challenge;
+			
+			printf(">> ");
+			scanf_s("%d", &challenge);
+			while (1) {
+				if (challenge == 1) {
+					if (CP >= 10 * (turn / 2)) {
+						CP -= 10 * (turn / 2);
+						printf("도전을 시작합니다!\n");
+						break;
+					}
+					else {
+						printf("CP가 부족합니다. 도전을 취소합니다.\n");
+						challenge = 0;
+						break;
+					}
+				}
+				else if (challenge == 0) {
+					printf("돌발 퀘스트를 포기합니다.\n");
+					challenge = 0;
+					break;
+				}
+				else {
+					printf(">> ");
+					scanf_s("%d", &challenge);
+				}
+			}
+			if (challenge == 0) {
+				printf("게임을 계속 진행합니다.\n");
+			}
 
-		
+			if (challenge == 1) {
+				int ans1, ans2; // 기분과 친밀도 입력 변수
+				printf("현재 %s의 기분과 친밀도를 입력하세요.\n", cat);
+				printf(">> ");
+				scanf_s("%d%d", &ans1, &ans2);
+				if (ans1 == feel && ans2 == intimacy) {
+					printf("돌발 퀘스트에 성공했습니다!\n");
+					clear = 1; // 돌발 퀘스트 성공
+				}
+				else {
+					printf("돌발 퀘스트에 실패했습니다.\n");
+					printf("게임을 계속 진행합니다.\n");
+					
+				}
+				
 
-		
+			}
+			printf("\n");
+		}
+		//
+
+		if (clear == 1) {
+			printf("축하합니다! %s과(와) 함께한 게임을 종료합니다.\n", cat);
+			printf("최종 CP: %d 포인트\n", CP);
+			printf("최종 수프: %d개\n", soup);
+			printf("최종 친밀도: %d\n", intimacy);
+			printf("최종 기분: %d\n", feel);
+			break;
+		}
 		turn++;
+		Sleep(500);
+		system("cls");
 		}
 
 
